@@ -1,0 +1,6 @@
+--Create a book list database
+
+CREATE TABLE books (id INTEGER PRIMARY KEY, name TEXT, rating INTEGER);
+INSERT INTO books VALUES (1, "Think Again", 1);
+INSERT INTO books VALUES (2, "Dear Girl", 2);
+INSERT INTO books VALUES (3, "The End", 3);
