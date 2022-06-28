@@ -1,0 +1,24 @@
+SELECT * FROM BIT_DB.customers LIMIT 20;
+
+/*Queried for a specific product*/
+SELECT COUNT(orderID) FROM BIT_DB.JanSales WHERE product = "iPhone";
+
+/*Joined two tables to see which customers placed an order in a specific month*/
+SELECT customers.acctnum, customers.order_id, FebSales.orderID FROM BIT_DB.customers
+JOIN FebSales ON customers.order_id = FebSales.orderID;
+
+/*Determined which product sold was the cheapest*/
+SELECT DISTINCT product, MIN(price) FROM JanSales ORDER BY price ASC LIMIT 1;
+
+/*Same as above written a different way*/
+SELECT distinct product, price FROM JanSales WHERE price in (Select min(price) FROM JanSales);
+
+/*Determined the total revenue for each product sold in a given month*/
+Select product, sum(quantity)*price AS Revenue FROM JanSales GROUP BY product;
+
+/*Queried to find which products were sold in a given month from a specific location. I also queried to see how many of each product was sold and the total revenue generated*/
+Select product, quantity, price, sum(quantity)*price AS Revenue, location FROM FebSales WHERE location IN ('548 Lincoln St, Seattle, WA 98101') GROUP BY product;
+Select product, sum(quantity), sum(quantity)*price AS Revenue FROM FebSales WHERE location = '548 Lincoln St, Seattle, WA 98101' GROUP BY product;
+
+/*This was a little more complicated, but I wanted to find the number of customers who ordered more than two products in a month and the average amount they spent */
+Select COUNT(customers.acctnum), avg(quantity*price) FROM FebSales JOIN customers ON customers.order_id=FebSales.orderID WHERE febsales.Quantity>2;
