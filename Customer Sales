@@ -22,3 +22,18 @@ Select product, sum(quantity), sum(quantity)*price AS Revenue FROM FebSales WHER
 
 /*This was a little more complicated, but I wanted to find the number of customers who ordered more than two products in a month and the average amount they spent */
 Select COUNT(customers.acctnum), avg(quantity*price) FROM FebSales JOIN customers ON customers.order_id=FebSales.orderID WHERE febsales.Quantity>2;
+
+/*The next few lines are examples where I pulled various order data by location, date, and product*/
+SELECT orderdate FROM FebSales WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
+
+Select location FROM FebSales WHERE orderdate ='02/18/19 01:35';
+
+Select sum(quantity) FROM FebSales WHERE orderdate like '02/18/19%';
+
+Select distinct Product FROM FebSales WHERE Product like '%Batteries%'
+
+Select distinct product, price FROM FebSales WHERE price like '%.99';
+
+Select distinct product,sum(quantity) FROM FebSales WHERE location like '%Los Angeles%' GROUP BY product;
+
+Select product, sum(quantity) FROM FebSales WHERE location like '%Los Angeles%' GROUP BY Product;
